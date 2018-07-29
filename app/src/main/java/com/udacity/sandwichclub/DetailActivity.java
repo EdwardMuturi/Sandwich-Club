@@ -1,9 +1,12 @@
 package com.udacity.sandwichclub;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -14,6 +17,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+    TextView tvOrigin, tvKnownas, tvDescription, tvIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
         String json = sandwiches[position];
         Sandwich sandwich = JsonUtils.parseSandwichJson(json);
+        Log.e("DetailsAct", sandwich.getDescription());
         if (sandwich == null) {
             // Sandwich data unavailable
             closeOnError();
@@ -49,6 +54,10 @@ public class DetailActivity extends AppCompatActivity {
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
+        tvOrigin.setText(sandwich.getPlaceOfOrigin());
+//        tvKnownas.setText(sandwich.getAlsoKnownAs());
+//        tvIngredients.setText(sandwich.getIngredients());
+        tvDescription.setText(sandwich.getDescription());
     }
 
     private void closeOnError() {
@@ -57,6 +66,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-
+        tvOrigin= findViewById(R.id.origin_tv);
+        tvKnownas = findViewById(R.id.also_known_tv);
+        tvDescription = findViewById(R.id.description_tv);
+        tvIngredients = findViewById(R.id.ingredients_tv);
     }
 }
