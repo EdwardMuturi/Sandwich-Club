@@ -38,8 +38,8 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
-        String json = sandwiches[position];
-        Sandwich sandwich = JsonUtils.parseSandwichJson(json);
+        String clickedSandwichJson = sandwiches[position];
+        Sandwich sandwich = JsonUtils.parseSandwichJson(clickedSandwichJson);
         Log.e("DetailsAct", sandwich.getDescription());
         if (sandwich == null) {
             // Sandwich data unavailable
@@ -54,8 +54,17 @@ public class DetailActivity extends AppCompatActivity {
 
         setTitle(sandwich.getMainName());
         tvOrigin.setText(sandwich.getPlaceOfOrigin());
-//        tvKnownas.setText(sandwich.getAlsoKnownAs());
-//        tvIngredients.setText(sandwich.getIngredients());
+        StringBuilder builder= new StringBuilder();
+        for (String knownAs: sandwich.getAlsoKnownAs()){
+            builder.append(knownAs + "\n");
+        }
+        tvKnownas.setText(builder.toString());
+
+        StringBuilder ingredientsBuilder= new StringBuilder();
+        for (String sIngredients: sandwich.getIngredients()){
+            ingredientsBuilder.append(sIngredients + "\n");
+        }
+        tvIngredients.setText(ingredientsBuilder.toString());
         tvDescription.setText(sandwich.getDescription());
     }
 
