@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         android:textSize="18sp"
         android:scrollbars="vertical"
-        android:text="Description" />
+        android:text="@string/text_description" />
 
 </FrameLayout>

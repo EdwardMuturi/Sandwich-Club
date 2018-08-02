@@ -24,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
-    TextView tvOrigin, tvKnownas, tvDescription, tvIngredients;
+    TextView tvOrigin, tvKnownas;
     TabLayout tabLayout;
     ViewPager viewPager;
 
@@ -75,10 +75,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         tvKnownas.setText(builder.toString());
 
-//        StringBuilder ingredientsBuilder = new StringBuilder();
-//        for (String sIngredients : sandwich.getIngredients()) {
-//            ingredientsBuilder.append(sIngredients + "\n");
-//        }
 
     }
 

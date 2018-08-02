@@ -129,5 +129,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_ingredients">Ingredients</string>
+    <string name="text_description">Description</string>
+    <string name="text_origin">Origin</string>
+    <string name="text_also_known_as">Also Known As</string>
 
 </resources>
