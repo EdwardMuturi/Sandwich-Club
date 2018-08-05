@@ -1,5 +1,6 @@
 package com.udacity.sandwichclub;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -20,13 +21,35 @@ import com.udacity.sandwichclub.fragment.IngredientFragment;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
-    TextView tvOrigin, tvKnownas;
+    String TAG= DetailActivity.this.getClass().getSimpleName();
+
+    @BindView(R.id.origin_tv)
+    TextView tvOrigin;
+
+    @BindView(R.id.also_known_tv)
+    TextView tvKnownas;
+    @BindView(R.id.tabs)
     TabLayout tabLayout;
+
+    @BindView(R.id.viewpager)
     ViewPager viewPager;
+
+    @BindView(R.id.image_iv)
+    ImageView ingredientsIv;
+
+    @BindView(R.id.also_known_label)
+    TextView knownAsLabel;
+
+    @BindView(R.id.origin_label)
+    TextView originLabel;
+
 
     Sandwich sandwich;
 
@@ -35,8 +58,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        ImageView ingredientsIv = findViewById(R.id.image_iv);
-
+        ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -64,16 +86,15 @@ public class DetailActivity extends AppCompatActivity {
         populateUI();
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_error)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
         tvOrigin.setText(sandwich.getPlaceOfOrigin());
 
-        StringBuilder builder = new StringBuilder();
-        for (String knownAs : sandwich.getAlsoKnownAs()) {
-            builder.append(knownAs + "\t ");
-        }
-        tvKnownas.setText(builder.toString());
+        tvKnownas.setText(TextUtils.join(", ", sandwich.getAlsoKnownAs()));
+        Log.e(TAG, sandwich.getDescription());
 
 
     }
@@ -84,11 +105,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-        tvOrigin = findViewById(R.id.origin_tv);
-        tvKnownas = findViewById(R.id.also_known_tv);
-        tabLayout = findViewById(R.id.tabs);
-        viewPager = findViewById(R.id.viewpager);
-
         checkEmpty();
 
         setUpViewPager(viewPager);
@@ -97,14 +113,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private void setUpViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(DescriptionFragment.newInstance (sandwich.getDescription()), "Description");
-        adapter.addFragment(IngredientFragment.newInstance(sandwich.getIngredients()), "Ingredients");
+        adapter.addFragment(DescriptionFragment.newInstance (sandwich.getDescription()), getString(R.string.text_description));
+        adapter.addFragment(IngredientFragment.newInstance(sandwich.getIngredients()), getString(R.string.text_ingredients));
         viewPager.setAdapter(adapter);
     }
 
+
     public void checkEmpty() {
         if (sandwich.getAlsoKnownAs().isEmpty()){
-            TextView knownAsLabel= findViewById(R.id.also_known_label);
             tvKnownas.setVisibility(View.INVISIBLE);
             knownAsLabel.setVisibility(View.INVISIBLE);
 
@@ -114,7 +130,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if (sandwich.getPlaceOfOrigin().isEmpty()){
-            TextView originLabel= findViewById(R.id.origin_label);
             originLabel.setVisibility(View.INVISIBLE);
             tvOrigin.setVisibility(View.INVISIBLE);
 

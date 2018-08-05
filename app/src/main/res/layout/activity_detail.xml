@@ -1,81 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context="com.udacity.sandwichclub.DetailActivity">
-
-    <ImageView
-        android:id="@+id/image_iv"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/sandwich_picture_content_description"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:weightSum="3">
-       <TextView
-           android:id="@+id/origin_label"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_margin="@dimen/dimen_10dp"
-           android:text="@string/detail_place_of_origin_label"
-           android:textStyle="bold"
-           android:layout_weight="0.5"/>
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:hint="@string/text_origin"
-           android:id="@+id/origin_tv"
-           android:layout_weight="3.5"
-           android:layout_marginTop="@dimen/margin_9dp"/>
-   </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="4">
-        <TextView
-            android:id="@+id/also_known_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_10dp"
-            android:text="@string/detail_also_known_as_label"
-            android:textStyle="bold"
-            android:layout_weight="0.4"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/also_known_tv"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/image_iv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ivImage_height"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/sandwich_picture_content_description"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text_also_known_as"
-            android:layout_weight="3.6"
-            android:layout_marginTop="@dimen/margin_9dp"/>
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/origin_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10dp"
+                android:layout_weight="0.5"
+                android:text="@string/detail_place_of_origin_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/origin_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_9dp"
+                android:layout_weight="3.5"
+                android:hint="@string/text_origin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="4">
+
+            <TextView
+                android:id="@+id/also_known_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_10dp"
+                android:layout_weight="0.4"
+                android:text="@string/detail_also_known_as_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/also_known_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_9dp"
+                android:layout_weight="3.6"
+                android:hint="@string/text_also_known_as" />
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/gray"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/gray" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tabs"
-        android:background="@color/colorAccent"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/gray"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/gray"/>
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/viewpager"/>
-
-</LinearLayout>
+</ScrollView>

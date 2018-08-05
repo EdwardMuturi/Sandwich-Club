@@ -13,44 +13,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtils {
-    private String mainName;
-    private List<String> alsoKnownAs = null;
-    private String placeOfOrigin;
-    private String description;
-    private String image;
-    private List<String> ingredients = null;
 
     public static Sandwich parseSandwichJson(String json) {
         List<String> alsoKnownAsList= new ArrayList<>();
         List<String> ingredientsList= new ArrayList<>();
         Sandwich sandwichDetails = new Sandwich();
+
         if (json != null) {
             try {
                 //fetching sandwich details
                 JSONObject sandwiches = new JSONObject(json);
 
                 //fetch name object
-                JSONObject name = sandwiches.getJSONObject("name");
-                String mainName = name.getString("mainName");
+                JSONObject name = sandwiches.optJSONObject("name");
+                String mainName = name.optString("mainName");
 
-                JSONArray alsoKnownas = name.getJSONArray("alsoKnownAs");
+                JSONArray alsoKnownas = name.optJSONArray("alsoKnownAs");
                 for (int x = 0; x < alsoKnownas.length(); x++) {
-                    String otherName= alsoKnownas.getString(x);
+                    String otherName= alsoKnownas.optString(x);
                     alsoKnownAsList.add(otherName);
 
                 }
 
-                JSONArray ingredients= sandwiches.getJSONArray("ingredients");
+                JSONArray ingredients= sandwiches.optJSONArray("ingredients");
                 for (int x = 0; x < ingredients.length(); x++) {
-                    String ingr= ingredients.getString(x);
+                    String ingr= ingredients.optString(x);
                     ingredientsList.add(ingr);
 
                 }
 
 
-                String origin = sandwiches.getString("placeOfOrigin");
-                String description = sandwiches.getString("description");
-                String image = sandwiches.getString("image");
+                String origin = sandwiches.optString("placeOfOrigin");
+                String description = sandwiches.optString("description");
+                String image = sandwiches.optString("image");
 
                 sandwichDetails = new Sandwich(mainName, alsoKnownAsList, origin, description, image, ingredientsList);
 
