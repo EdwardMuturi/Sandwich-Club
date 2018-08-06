@@ -6,4 +6,7 @@
     <dimen name="margin_9dp">9dp</dimen>
     <dimen name="ivImage_height">200dp</dimen>
     <dimen name="textSize_18sp">18sp</dimen>
+    <dimen name="dimen_5dp">5dp</dimen>
+    <dimen name="value_318dp">318dp</dimen>
+    <dimen name="value_320dp">320dp</dimen>
 </resources>
